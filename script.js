@@ -15,7 +15,7 @@ const mosaicData = [
   // === Rows 1-2 ===
   {
     id: 1,
-    image: "images/mom&dad.jpg",
+    image: "images/mom%26dad.jpg",
     title: "My Parents",
     description: "The two most important people in my life! My parents have largely shaped who I am today.",
     size: "2x2",
@@ -147,7 +147,7 @@ const mosaicData = [
   // === Rows 7-8 ===
   {
     id: 17,
-    image: "images/fdoc.jpeg",
+    image: "images/fdoc.jpg",
     title: "My Friends",
     description: "My friends from our last fall FDOC.",
     size: "2x2",
