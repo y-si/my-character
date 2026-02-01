@@ -1,0 +1,363 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Courier New', Courier, monospace;
+  background: #0a0a0a;
+  color: #00ff00;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* Screen management */
+.screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.screen.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ==================== TERMINAL STYLES ==================== */
+#terminal-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0a0a0a;
+}
+
+.terminal {
+  width: 80%;
+  max-width: 800px;
+  background: #1a1a1a;
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.terminal-header {
+  background: #2d2d2d;
+  padding: 12px 16px;
+  display: flex;
+  gap: 8px;
+}
+
+.terminal-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.terminal-dot.red { background: #ff5f56; }
+.terminal-dot.yellow { background: #ffbd2e; }
+.terminal-dot.green { background: #27ca40; }
+
+.terminal-body {
+  padding: 24px;
+  min-height: 300px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+#terminal-output {
+  margin-bottom: 16px;
+}
+
+.terminal-line {
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+.terminal-line.system {
+  color: #888;
+}
+
+.terminal-line.prompt-line {
+  color: #00ff00;
+}
+
+.terminal-line.user-input {
+  color: #fff;
+}
+
+.terminal-line.error {
+  color: #ff5f56;
+}
+
+.terminal-input-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.prompt {
+  color: #00ff00;
+}
+
+#terminal-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-family: inherit;
+  font-size: 16px;
+  caret-color: #00ff00;
+}
+
+/* Typing animation for terminal text */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.cursor {
+  animation: blink 1s infinite;
+}
+
+/* ==================== MOSAIC STYLES ==================== */
+#mosaic-screen {
+  background: #1a1a1a;
+  overflow-y: auto;
+}
+
+.mosaic-container {
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.mosaic-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 150px;
+  grid-auto-flow: dense; /* Fill gaps automatically */
+  gap: 4px;
+  background: #2a2a2a; /* The "leading" between glass pieces */
+  padding: 4px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.mosaic-item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* Varied grid sizes for stained glass effect */
+.mosaic-item.size-1x1 { grid-column: span 1; grid-row: span 1; }
+.mosaic-item.size-2x1 { grid-column: span 2; grid-row: span 1; }
+.mosaic-item.size-1x2 { grid-column: span 1; grid-row: span 2; }
+.mosaic-item.size-2x2 { grid-column: span 2; grid-row: span 2; }
+.mosaic-item.size-3x2 { grid-column: span 3; grid-row: span 2; }
+
+.mosaic-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.mosaic-item:hover {
+  z-index: 10;
+}
+
+.mosaic-item:hover img {
+  transform: scale(1.05);
+}
+
+/* Stained glass glow effect on hover */
+.mosaic-item::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.mosaic-item:hover::after {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+}
+
+/* ==================== MODAL STYLES ==================== */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 1000;
+}
+
+.modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background: #1a1a1a;
+  max-width: 900px;
+  width: 90%;
+  max-height: 85vh;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.modal.active .modal-content {
+  transform: scale(1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 32px;
+  cursor: pointer;
+  z-index: 10;
+  transition: color 0.2s ease;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  color: #fff;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.modal-main-image {
+  width: 100%;
+  max-height: 50vh;
+  overflow: hidden;
+}
+
+.modal-main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-info {
+  padding: 32px;
+  color: #e0e0e0;
+  font-family: 'Georgia', serif;
+}
+
+.modal-info h2 {
+  font-size: 24px;
+  margin-bottom: 16px;
+  color: #fff;
+  font-weight: normal;
+}
+
+.modal-info p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #b0b0b0;
+}
+
+.supplemental-images {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.supplemental-images img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.supplemental-images img:hover {
+  transform: scale(1.05);
+}
+
+/* ==================== TRANSITION EFFECTS ==================== */
+.fade-out {
+  animation: fadeOut 0.8s ease forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1.2s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3a3a3a;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4a4a4a;
+}

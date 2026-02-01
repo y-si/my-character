@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Character Unlock</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Terminal Screen -->
+  <div id="terminal-screen" class="screen active">
+    <div class="terminal">
+      <div class="terminal-header">
+        <span class="terminal-dot red"></span>
+        <span class="terminal-dot yellow"></span>
+        <span class="terminal-dot green"></span>
+      </div>
+      <div class="terminal-body">
+        <div id="terminal-output"></div>
+        <div class="terminal-input-line">
+          <span class="prompt">→</span>
+          <input type="text" id="terminal-input" autocomplete="off" autofocus>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mosaic Screen -->
+  <div id="mosaic-screen" class="screen">
+    <div class="mosaic-container">
+      <div class="mosaic-grid">
+        <!-- Grid items will be populated by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for expanded image view -->
+  <div id="image-modal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close">&times;</button>
+      <div class="modal-body">
+        <div class="modal-main-image">
+          <img id="modal-image" src="" alt="">
+        </div>
+        <div class="modal-info">
+          <h2 id="modal-title"></h2>
+          <p id="modal-description"></p>
+          <div id="modal-supplemental" class="supplemental-images"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
